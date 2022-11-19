@@ -23,6 +23,7 @@ public class RecipeDAO {
     public List<Recipe> findRecipes(String email, String name) {
         List<Recipe> list = new ArrayList<>();
         try(Connection connection = DriverManager.getConnection(url)) {
+            //select * from Recipe JOIN User ON Recipe.author_id = User.id WHERE User.email LIKE '%'
             String query = "SELECT * FROM Recipe WHERE title like '"+ name + "%' ORDER BY title ASC";
             Statement statement = connection.createStatement();
             ResultSet set = statement.executeQuery(query);
