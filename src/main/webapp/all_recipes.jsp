@@ -10,7 +10,7 @@
 </head>
 <body>
     <c:import url="header.html"/>
-
+    <c:import url="search.html"/>
     <c:forEach var="recipe" items="${requestScope.recipes}">
         <div class="recipe">
             <div class="title">

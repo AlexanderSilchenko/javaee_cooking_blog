@@ -5,7 +5,7 @@ import java.util.*;
 
 public class RecipeDAO {
     private static final RecipeDAO instance = new RecipeDAO();
-    private static String url = "jdbc:sqlite:D:\\java projects\\demo\\database.db";
+    private static String url = "jdbc:sqlite:G:\\IdeaProjects\\javaee_cooking_blog\\database.db";
 
     private RecipeDAO() {
         try {
@@ -20,6 +20,28 @@ public class RecipeDAO {
         return instance;
     }
 
+    public List<Recipe> findRecipes(String email, String name) {
+        List<Recipe> list = new ArrayList<>();
+        try(Connection connection = DriverManager.getConnection(url)) {
+            String query = "SELECT * FROM Recipe WHERE title like '"+ name + "%' ORDER BY title ASC";
+            Statement statement = connection.createStatement();
+            ResultSet set = statement.executeQuery(query);
+
+            while(set.next()) {
+                String title = set.getString("title");
+                String description = set.getString("description");
+                int author_id = set.getInt("author_id");
+
+                User author = UserDAO.getInstance().getUserById(author_id);
+                if (author.getEmail().startsWith(email))
+                    list.add(new Recipe(title, description, author));
+            }
+        }
+        catch(SQLException ex) {
+            ex.printStackTrace();
+        }
+        return list;
+    }
     public List<Recipe> allRecipes() {
         List<Recipe> list = new ArrayList<>();
         try(Connection connection = DriverManager.getConnection(url)) {

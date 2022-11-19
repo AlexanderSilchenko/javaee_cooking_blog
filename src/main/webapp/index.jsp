@@ -8,6 +8,7 @@
 </head>
 <body>
 
+
 <%--    Аналог if else if--%>
 <%--sessionScope.user делает это session.getAttribute("user")--%>
     <c:choose>
@@ -19,7 +20,6 @@
             <c:import url="header.html"/>
         </c:otherwise>
     </c:choose>
-
 
 <%--    <a href="create_recipe.jsp">Create recipe</a>--%>
 <%--    <a href="all_recipes.jsp">All recipes</a>--%>
